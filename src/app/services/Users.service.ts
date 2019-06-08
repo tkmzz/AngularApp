@@ -5,10 +5,14 @@ import uuid from 'uuid';
 
 @Injectable({ providedIn: "root" })
 export class UsersService {
-  constructor(private http: HttpClient, private db: AngularFirestore) {}
+  constructor(private http: HttpClient, private db: AngularFirestore) { }
 
-  getById(id: string){
-    return this.db.collection('users', ref=> ref.where('id', '==', id)).snapshotChanges()
+  getById(id: string) {
+    return this.db.collection('users', ref => ref.where('id', '==', id)).snapshotChanges()
+  }
+
+  getAllUsers(id: string) {
+    return this.db.collection('users').snapshotChanges()
   }
 
   create(data) {
@@ -17,8 +21,14 @@ export class UsersService {
     console.log(this.db);
 
     return this.db.collection('users').add({
-      id:uuid(),
+      id: uuid(),
       ...data,
     });
+  }
+
+  update(id: string, data) {
+
+    return this.db.collection('users').doc(id).set(data)
+
   }
 }

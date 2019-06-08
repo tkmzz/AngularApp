@@ -1,7 +1,7 @@
 <div>
   <loading-component [show]="loading"></loading-component>
 
-  <form [formGroup]="userForm" (ngSubmit)="createUser()">
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
     <input type="text" placeholder="Input Name" name="name" formControlName="name" />
 
@@ -16,7 +16,8 @@
     <input type="text" placeholder="Input Phone" name="phone" formControlName="phone" />
 
     <button type="submit" [disabled]="!userForm.valid">
-      Create User
+      <span *ngIf="!userId">Create User</span>
+      <span *ngIf="userId">Update</span>
     </button>
 
   </form>

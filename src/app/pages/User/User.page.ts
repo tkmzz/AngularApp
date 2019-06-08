@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 
 import { UsersService } from "../../services/Users.service";
@@ -20,9 +20,10 @@ export class UserComponent {
   })
 
   private userId: string = "";
+  private documentId: string = ""
   private loading: boolean = false;
 
-  constructor(private usersService: UsersService, private route: ActivatedRoute) {
+  constructor(private usersService: UsersService, private route: ActivatedRoute, private router: Router) {
     console.log(this.route.snapshot.paramMap.get("id"));
   }
 
@@ -33,7 +34,12 @@ export class UserComponent {
 
   private getUser(id: string) {
     this.usersService.getById(id).subscribe((data: any) => {
-      const result = data[0].payload.doc.data()
+      const { doc } = data[0].payload
+      this.documentId = doc.id
+
+      console.log(doc.id)
+
+      const result = doc.data()
 
       Object.keys(result)
         .filter(item => item !== 'id')
@@ -45,12 +51,29 @@ export class UserComponent {
     })
   }
 
-  createUser() {
-    this.loading = true
+  onSubmit() {
 
-    this.usersService.create(this.userForm.value)
-      .then(() => this.loading = false)
-      .catch((err) => this.loading = false)
+    if (this.userId == null) {
+      this.loading = true
 
+      this.usersService.create(this.userForm.value)
+        .then(() => {
+          this.router.navigate(['/']),
+            this.loading = false
+        })
+        .catch((err) => this.loading = false)
+
+    } else {
+
+      const updatedData = {
+        id: this.userId,
+        ...this.userForm.value
+      }
+
+      this.usersService.update(this.documentId, updatedData)
+        .then(() => {
+          this.router.navigate(['/'])
+        })
+    }
   }
 }
