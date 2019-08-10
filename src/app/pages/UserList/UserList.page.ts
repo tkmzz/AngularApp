@@ -11,7 +11,9 @@ export class UserListPage {
 
   constructor(private usersService: UsersService) { }
 
-  private users = []
+  public users = []
+  private filterBy: string = ''
+  private orderBy: number = 0
 
   ngOnInit(id: string) {
     this.usersService.getAllUsers(id).subscribe((data: any) => {
@@ -19,5 +21,13 @@ export class UserListPage {
         this.users.push(element.payload.doc.data())
       });
     })
+  }
+
+  setFilterBy(event: any) {
+    this.filterBy = event.target.value
+  }
+
+  onChange(value: number) {
+    this.orderBy = value
   }
 }

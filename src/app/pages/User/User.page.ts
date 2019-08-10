@@ -19,9 +19,9 @@ export class UserComponent {
     phone: new FormControl('')
   })
 
-  private userId: string = "";
+  public userId: string = "";
   private documentId: string = ""
-  private loading: boolean = false;
+  public loading: boolean = false;
 
   constructor(private usersService: UsersService, private route: ActivatedRoute, private router: Router) {
     console.log(this.route.snapshot.paramMap.get("id"));
