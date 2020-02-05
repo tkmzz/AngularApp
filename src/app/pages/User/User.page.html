@@ -1,24 +1,86 @@
-<div>
-  <loading-component [show]="loading"></loading-component>
+<!doctype html>
+<html lang="en">
 
-  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <input type="text" placeholder="Input Name" name="name" formControlName="name" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <div *ngIf="userForm.controls.name.invalid && userForm.controls.name.touched">
-      O campo nome é obrigatório
-    </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
 
-    <input type="email" placeholder="Input Email" name="email" formControlName="email" />
+<body>
+  <h1 class="text-center">Add a user</h1>
+  <div>
 
-    <input type="number" placeholder="Input Age" name="age" formControlName="age" />
+    <loading-component [show]="loading"></loading-component>
 
-    <input type="text" placeholder="Input Phone" name="phone" formControlName="phone" />
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
-    <button type="submit" [disabled]="!userForm.valid">
-      <span *ngIf="!userId">Create User</span>
-      <span *ngIf="userId">Update</span>
-    </button>
+      <div class="form-group">
+        <div class="text-center">
+          <label for="userName">Name</label>
+        </div>
 
-  </form>
-</div>
+        <div>
+          <input type="text" class="form-control mb-2 mr-sm-2" id="userName" placeholder="Input name" name="name"
+            formControlName="name">
+        </div>
+      </div>
+
+      <div *ngIf="userForm.controls.name.invalid && userForm.controls.name.touched">
+        O campo nome é obrigatório
+      </div>
+
+      <div class="form-group">
+        <div class="text-center">
+          <label for="userEmail">Email address</label>
+        </div>
+
+        <div>
+          <input type="email" class="form-control" id="userEmail" placeholder="Input email" name="email"
+            formControlName="email">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="text-center">
+          <label for="userAge">Age</label>
+        </div>
+
+        <div>
+          <input type="number" class="form-control" id="userAge" placeholder="Input age" name="age"
+            formControlName="age">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="text-center">
+          <label for="userPhone">Phone</label>
+        </div>
+
+        <div>
+          <input type="text" class="form-control" id="userPhone" placeholder="Input phone" name="phone"
+            formControlName="phone">
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!userForm.valid">
+        <span *ngIf="!userId">Create User</span>
+        <span *ngIf="userId">Update</span>
+      </button>
+
+    </form>
+
+  </div>
+
+
+</body>
+
+</html>

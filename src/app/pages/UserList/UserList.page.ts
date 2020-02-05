@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-
+import { Router } from "@angular/router";
 import { UsersService } from "../../services/Users.service";
 
 @Component({
@@ -9,7 +9,7 @@ import { UsersService } from "../../services/Users.service";
 })
 export class UserListPage {
 
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService, private router: Router) { }
 
   public users = []
   private filterBy: string = ''
@@ -29,5 +29,13 @@ export class UserListPage {
 
   onChange(value: number) {
     this.orderBy = value
+  }
+
+  onSubmit() {
+
+
+
+
+
   }
 }
